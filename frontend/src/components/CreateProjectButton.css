@@ -1,0 +1,47 @@
+.button-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.button {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.button h2 {
+  margin-top: 0;
+}
+
+.button label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.button input,
+.button textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.button-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.error {
+  color: red;
+  margin-bottom: 1rem;
+}
