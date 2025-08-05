@@ -52,6 +52,26 @@ level > 50 ? 'Legendary' : 'Common'
   return weaknessMap[type] || [];
 })()
 `.trim(),
+
+    alignment: `
+    // Determine moral alignment score from personality traits (multiselect list)
+    (() => {
+      const goodTraits = ['Honest', 'Kind', 'Generous', 'Compassionate'];
+      const evilTraits = ['Greedy', 'Cruel', 'Selfish', 'Deceptive'];
+
+      if (!Array.isArray(traits)) return 'Neutral'; // defensive check
+
+      let moralScore = 0;
+
+      traits.forEach(trait => {
+        if (goodTraits.includes(trait)) moralScore += 10;
+        if (evilTraits.includes(trait)) moralScore -= 10;
+      });
+
+      if (moralScore > 0) return 'Good';
+      if (moralScore < 0) return 'Evil';
+      return 'Neutral';
+    })()`.trim(),
     
     validation: `
 // Input validation example
@@ -176,6 +196,13 @@ level > 50 ? 'Legendary' : 'Common'
                 onClick={() => insertExample('weaknesses')}
               >
                 Elemental Weaknesses
+              </button>
+              <button
+                type="button"
+                className="example-btn"
+                onClick={() => insertExample('alignment')}
+              >
+                Moral Alignment Calculation
               </button>
               <button
                 type="button"
