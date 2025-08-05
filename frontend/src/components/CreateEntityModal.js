@@ -215,6 +215,29 @@ function CreateEntityModal({ projectId, template, onClose, onEntityCreated }) {
                     ))}
                   </fieldset>
                 );
+              case 'image':
+                return (
+                  <label key={fieldKey}>
+                    {field.name}:
+                    <input
+                      type="file"
+                      accept="image/*"
+                      disabled={submitting}
+                      onChange={e => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          //Convert image to base64 (quick, but larger)
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            handleChange(fieldKey, reader.result); // Base64 string
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </label>
+                );
+
               default:
                 return null;
             }

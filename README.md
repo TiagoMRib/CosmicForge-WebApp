@@ -3,10 +3,10 @@
 # Run both frontend and backend with Docker
 docker-compose -f docker-compose.dev.yml up --build
 
-backend
+# backend
 
 npm run dev
 
-frontend 
+# frontend 
 
 npm start
