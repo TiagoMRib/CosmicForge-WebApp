@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  frontend-dev:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_URL=http://localhost:3001/api
+    restart: unless-stopped
+    networks:
+      - cosmic-forge-dev-network
+    depends_on:
+      - backend-dev
+
+  backend-dev:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+    restart: unless-stopped
+    networks:
+      - cosmic-forge-dev-network
+
+networks:
+  cosmic-forge-dev-network:
+    driver: bridge 
