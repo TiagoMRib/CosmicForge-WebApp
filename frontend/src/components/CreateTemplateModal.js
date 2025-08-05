@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import FormulaEditorModal from './FormulaEditorModal';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
-const fieldTypes = ['string', 'number', 'boolean', 'select', 'multiselect', 'computed'];
+const fieldTypes = ['string', 'number', 'boolean', 'select', 'multiselect', 'computed', 'image'];
 
 /**
  * CreateTemplateModal - A modal for creating new templates

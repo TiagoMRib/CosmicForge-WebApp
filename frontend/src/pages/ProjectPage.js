@@ -295,26 +295,26 @@ function ProjectPage() {
                       </div>
                       <div className="entity-data">
                         {Object.entries(entity.data || {}).map(([key, value]) => {
-                          // Find the field definition to check if it's computed
                           const fieldDef = selectedTemplate.schema.find(f => f.name === key);
                           const isComputed = fieldDef?.type === 'computed';
-                          
-                          // Format the value for display
-                          let displayValue;
-                          if (value === null || value === undefined) {
-                            displayValue = 'null';
+
+                          let content;
+
+                          if (fieldDef?.type === 'image' && typeof value === 'string') {
+                            content = <img src={value} alt={key} style={{ maxWidth: '150px', maxHeight: '150px' }} />;
+                          } else if (value === null || value === undefined) {
+                            content = <span className={isComputed ? 'computed-value' : ''}>null</span>;
                           } else if (typeof value === 'object') {
-                            displayValue = Array.isArray(value) ? value.join(', ') : JSON.stringify(value);
+                            content = <span className={isComputed ? 'computed-value' : ''}>
+                              {Array.isArray(value) ? value.join(', ') : JSON.stringify(value)}
+                            </span>;
                           } else {
-                            displayValue = String(value);
+                            content = <span className={isComputed ? 'computed-value' : ''}>{String(value)}</span>;
                           }
-                          
+
                           return (
                             <div key={key} className={`entity-field ${isComputed ? 'computed-field' : ''}`}>
-                              <strong>{key}:</strong> 
-                              <span className={isComputed ? 'computed-value' : ''}>
-                                {displayValue}
-                              </span>
+                              <strong>{key}:</strong> {content}
                               {isComputed && (
                                 <span className="computed-badge" title="This value was computed automatically">
                                   🔢
@@ -323,6 +323,7 @@ function ProjectPage() {
                             </div>
                           );
                         })}
+
                         
                         {/* Show computed fields that might be missing */}
                         {selectedTemplate.schema
