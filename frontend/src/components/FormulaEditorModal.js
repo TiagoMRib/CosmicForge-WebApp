@@ -39,25 +39,15 @@ level > 50 ? 'Legendary' : 'Common'
 `.trim(),
     
     weaknesses: `
-// Pokemon-style weaknesses calculation
+// Elemental weaknesses calculation
 (() => {
   const weaknessMap = {
-    Fire: ['Water', 'Rock'],
-    Grass: ['Fire', 'Ice', 'Poison'],
+    Fire: ['Water', 'Earth'],
+    Grass: ['Fire', 'Ice'],
     Water: ['Electric', 'Grass'],
-    Electric: ['Ground'],
-    Ice: ['Fire', 'Fighting', 'Rock'],
-    Fighting: ['Flying', 'Psychic'],
-    Poison: ['Ground', 'Psychic'],
-    Ground: ['Water', 'Grass', 'Ice'],
-    Flying: ['Electric', 'Ice', 'Rock'],
-    Psychic: ['Bug', 'Ghost', 'Dark'],
-    Bug: ['Fire', 'Flying', 'Rock'],
-    Rock: ['Water', 'Grass', 'Fighting'],
-    Ghost: ['Ghost', 'Dark'],
-    Dragon: ['Ice', 'Dragon'],
-    Dark: ['Fighting', 'Bug'],
-    Steel: ['Fire', 'Fighting', 'Ground']
+    Electric: ['Earth'],
+    Ice: ['Fire'],
+    Earth: ['Water', 'Grass', 'Ice']
   };
   return weaknessMap[type] || [];
 })()
@@ -185,7 +175,7 @@ level > 50 ? 'Legendary' : 'Common'
                 className="example-btn"
                 onClick={() => insertExample('weaknesses')}
               >
-                Pokemon Weaknesses
+                Elemental Weaknesses
               </button>
               <button
                 type="button"
