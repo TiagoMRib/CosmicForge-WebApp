@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import CreateLocationTemplateModal from '../components/maps/CreateLocationTemplateModal';
 import LocationCreationModal from '../components/maps/LocationCreationModal';
 import LocationInstanceForm from '../components/maps/LocationInstanceForm';
+import EditMapModal from '../components/maps/EditMapModal';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import '../components/maps/map_pages_styles.css';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
@@ -24,6 +26,10 @@ function MapDetailPage() {
 
   const [locations, setLocations] = useState([]);
   const [activeLocation, setActiveLocation] = useState(null);
+
+  // --- Map edit/delete states
+  const [showEditMapModal, setShowEditMapModal] = useState(false);
+  const [showDeleteMapModal, setShowDeleteMapModal] = useState(false);
 
   // --- Fetch map data
   const fetchMap = async () => {
@@ -155,6 +161,42 @@ function MapDetailPage() {
     }
   };
 
+  // --- Handle map editing
+  const handleEditMap = async (updatedMapData) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/projects/${projectId}/maps/${mapId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedMapData)
+      });
+
+      if (!response.ok) throw new Error('Failed to update map');
+      
+      const updatedMap = await response.json();
+      setMap(updatedMap);
+      setShowEditMapModal(false);
+    } catch (err) {
+      console.error('Error updating map:', err);
+      alert('Failed to update map');
+    }
+  };
+
+  // --- Handle map deletion
+  const handleDeleteMap = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/projects/${projectId}/maps/${mapId}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) throw new Error('Failed to delete map');
+      
+      navigate(`/projects/${projectId}`);
+    } catch (err) {
+      console.error('Error deleting map:', err);
+      alert('Failed to delete map');
+    }
+  };
+
   if (loading) return <div className="container"><p>Loading map...</p></div>;
   if (error) return (
     <div className="container">
@@ -169,8 +211,26 @@ function MapDetailPage() {
         ← Back to Project
       </button>
 
-      <h1>{map.name}</h1>
-      <p>{map.description}</p>
+      <div className="map-header">
+        <div>
+          <h1>{map.name}</h1>
+          <p>{map.description}</p>
+        </div>
+        <div className="map-actions">
+          <button 
+            className="cosmic-btn cosmic-btn-secondary cosmic-btn-sm" 
+            onClick={() => setShowEditMapModal(true)}
+          >
+            Edit Map
+          </button>
+          <button 
+            className="cosmic-btn cosmic-btn-danger cosmic-btn-sm" 
+            onClick={() => setShowDeleteMapModal(true)}
+          >
+            Delete Map
+          </button>
+        </div>
+      </div>
 
       {map.image && (
         <div className="top-bar">
@@ -195,45 +255,52 @@ function MapDetailPage() {
               style={{ maxWidth: '100%', maxHeight: '600px', border: '1px solid #ccc' }}
             />
 
-            {locations.map(loc => (
-              <div
-                key={loc.id}
-                style={{
-                  position: 'absolute',
-                  left: `${loc.x_position * 100}%`,
-                  top: `${loc.y_position * 100}%`,
-                  transform: 'translate(-50%, -50%)',
-                  cursor: 'pointer',
-                }}
-                title={loc.name}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setActiveLocation({
-                    ...loc,
-                    template: locationTemplates.find(t => t.id === loc.template_id)
-                  });
-                }}
-              >
-                {loc.template_icon_url ? (
-                  <img
-                    src={loc.template_icon_url}
-                    alt={loc.name}
-                    style={{ width: 32, height: 32 }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: 24,
-                      height: 24,
-                      backgroundColor: '#007bff',
-                      borderRadius: '50%',
-                      border: '2px solid white',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                    }}
-                  />
-                )}
-              </div>
-            ))}
+            {locations.map(loc => {
+              const template = locationTemplates.find(t => t.id === loc.template_id);
+              return (
+                <div
+                  key={loc.id}
+                  className="location-marker"
+                  style={{
+                    position: 'absolute',
+                    left: `${loc.x_position * 100}%`,
+                    top: `${loc.y_position * 100}%`,
+                  }}
+                  title={loc.name}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveLocation({
+                      ...loc,
+                      template: template
+                    });
+                  }}
+                >
+                  {template?.icon_url ? (
+                    <img
+                      src={template.icon_url}
+                      alt={loc.name}
+                      style={{ 
+                        width: 24, 
+                        height: 24, 
+                        borderRadius: '50%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: 24,
+                        height: 24,
+                        backgroundColor: 'var(--cosmic-accent)',
+                        borderRadius: '50%',
+                        border: '2px solid var(--cosmic-text-light)',
+                        boxShadow: 'var(--cosmic-shadow)'
+                      }}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         ) : (
           <p>No map image uploaded yet.</p>
@@ -299,6 +366,21 @@ function MapDetailPage() {
               alert('Failed to update location');
             }
           }}
+          onDelete={async (locationId) => {
+            try {
+              const res = await fetch(`${API_BASE_URL}/locations/${locationId}`, {
+                method: 'DELETE',
+              });
+
+              if (!res.ok) throw new Error('Failed to delete location');
+              
+              setLocations(locations.filter(loc => loc.id !== locationId));
+              setActiveLocation(null);
+            } catch (err) {
+              console.error('Error deleting location:', err);
+              alert('Failed to delete location');
+            }
+          }}
           onCancel={() => setActiveLocation(null)}
         />
       )}
@@ -310,6 +392,24 @@ function MapDetailPage() {
             handleTemplateCreated(templateData);
             setShowTemplateModal(false);
           }}
+        />
+      )}
+
+      {showEditMapModal && (
+        <EditMapModal
+          map={map}
+          onSave={handleEditMap}
+          onClose={() => setShowEditMapModal(false)}
+        />
+      )}
+
+      {showDeleteMapModal && (
+        <ConfirmDeleteModal
+          title="Delete Map"
+          message="Are you sure you want to delete this map? All locations on this map will also be deleted."
+          itemName={map?.name}
+          onConfirm={handleDeleteMap}
+          onCancel={() => setShowDeleteMapModal(false)}
         />
       )}
     </div>
