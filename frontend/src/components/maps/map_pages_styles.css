@@ -1,6 +1,37 @@
 /* Cosmic Forge - Map Pages Styles */
 @import '../cosmic-forge-theme.css';
 
+/* Map Header */
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--cosmic-space-xl);
+  padding-bottom: var(--cosmic-space-lg);
+  border-bottom: 2px solid var(--cosmic-accent);
+}
+
+.map-header h1 {
+  margin: 0 0 var(--cosmic-space-sm) 0;
+  color: var(--cosmic-text-dark);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.map-header p {
+  margin: 0;
+  color: var(--cosmic-text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.map-actions {
+  display: flex;
+  gap: var(--cosmic-space-sm);
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
 /* Location Creation Modal Styles */
 .template-grid {
   display: flex;
@@ -275,6 +306,36 @@
   margin-right: var(--cosmic-space-sm);
   min-width: 100px;
   font-weight: 600;
+}
+
+/* Location Info in Modal */
+.location-info {
+  display: flex;
+  align-items: center;
+  background: var(--cosmic-bg-light);
+  padding: var(--cosmic-space-md);
+  border-radius: var(--cosmic-radius-lg);
+  margin-bottom: var(--cosmic-space-lg);
+  border-left: 4px solid var(--cosmic-accent);
+}
+
+.location-info img {
+  border-radius: var(--cosmic-radius);
+  background: var(--cosmic-bg-card);
+  padding: var(--cosmic-space-xs);
+}
+
+.location-info h4 {
+  margin: 0 0 var(--cosmic-space-xs) 0;
+  color: var(--cosmic-text-dark);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.location-info p {
+  margin: 0;
+  color: var(--cosmic-text-muted);
+  font-size: 0.875rem;
 }
 
 /* Map Loading State */

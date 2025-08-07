@@ -6,6 +6,8 @@ import EditTemplateModal from '../components/entities/EditTemplateModal';
 import CreateMapModal from '../components/maps/CreateMapModal';
 import CreateEntityModal from '../components/entities/CreateEntityModal';
 import EditEntityModal from '../components/entities/EditEntityModal';
+import CreateLocationTemplateModal from '../components/maps/CreateLocationTemplateModal';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
@@ -27,6 +29,12 @@ function ProjectPage() {
   const [editingEntity, setEditingEntity] = useState(null);
   const [entities, setEntities] = useState([]);
   const [loadingEntities, setLoadingEntities] = useState(false);
+
+  // Location template state
+  const [locationTemplates, setLocationTemplates] = useState([]);
+  const [showCreateLocationTemplate, setShowCreateLocationTemplate] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletingItem, setDeletingItem] = useState(null);
 
   const fetchProject = async () => {
     try {
@@ -65,6 +73,17 @@ function ProjectPage() {
       setMaps(data);
     } catch (err) {
       console.error('Error fetching maps:', err);
+    }
+  };
+
+  const fetchLocationTemplates = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/projects/${projectId}/location-templates`);
+      if (!response.ok) throw new Error('Failed to fetch location templates');
+      const data = await response.json();
+      setLocationTemplates(data);
+    } catch (err) {
+      console.error('Error fetching location templates:', err);
     }
   };
 
@@ -170,6 +189,45 @@ function ProjectPage() {
     setShowEditEntityModal(true);
   };
 
+  // Location template handlers
+  const handleLocationTemplateCreated = (newTemplate) => {
+    setLocationTemplates(prev => [newTemplate, ...prev]);
+    setShowCreateLocationTemplate(false);
+  };
+
+  const handleDeleteLocationTemplate = (template) => {
+    setDeletingItem({ type: 'location-template', item: template });
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deletingItem) return;
+
+    try {
+      const { type, item } = deletingItem;
+      
+      if (type === 'location-template') {
+        const response = await fetch(`${API_BASE_URL}/location-templates/${item.id}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) throw new Error('Failed to delete location template');
+        setLocationTemplates(prev => prev.filter(t => t.id !== item.id));
+      } else if (type === 'map') {
+        const response = await fetch(`${API_BASE_URL}/projects/${projectId}/maps/${item.id}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) throw new Error('Failed to delete map');
+        setMaps(prev => prev.filter(m => m.id !== item.id));
+      }
+      
+      setShowDeleteModal(false);
+      setDeletingItem(null);
+    } catch (err) {
+      console.error('Error during deletion:', err);
+      alert(`Failed to delete ${deletingItem.type.replace('-', ' ')}`);
+    }
+  };
+
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
@@ -177,6 +235,7 @@ function ProjectPage() {
       await fetchProject();
       await fetchTemplates();
       await fetchMaps();
+      await fetchLocationTemplates();
       setLoading(false);
     };
 
@@ -284,13 +343,73 @@ function ProjectPage() {
           <ul className="template-list">
             {maps.map(map => (
               <li key={map.id} className="template-item">
-                <button 
-                  className="template-button"
-                  onClick={() => navigate(`/projects/${projectId}/maps/${map.id}`)}
-                >
-                  🗺️ {map.name}
-                </button>
+                <div className="template-header">
+                  <button 
+                    className="template-button"
+                    onClick={() => navigate(`/projects/${projectId}/maps/${map.id}`)}
+                  >
+                    🗺️ {map.name}
+                  </button>
+                  <div className="template-actions">
+                    <button 
+                      className="btn-small delete-btn"
+                      onClick={() => handleDeleteLocationTemplate({ type: 'map', item: map })}
+                      title="Delete map"
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
                 <p>{map.description}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <hr />
+        <h2>Location Templates</h2>
+
+        <button className="cosmic-btn cosmic-btn-primary" onClick={() => setShowCreateLocationTemplate(true)}>
+          + Create Location Template
+        </button>
+
+        {locationTemplates.length === 0 ? (
+          <div className="empty-state">
+            <h3>No location templates yet</h3>
+            <p>Create location templates to place on your maps!</p>
+          </div>
+        ) : (
+          <ul className="template-list">
+            {locationTemplates.map(template => (
+              <li key={template.id} className="template-item">
+                <div className="template-header">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cosmic-space-sm)' }}>
+                    {template.icon_url && (
+                      <img 
+                        src={template.icon_url} 
+                        alt={template.name}
+                        style={{ width: 24, height: 24, borderRadius: 'var(--cosmic-radius)' }}
+                      />
+                    )}
+                    <div>
+                      <div className="template-button" style={{ background: 'none', padding: 0, textAlign: 'left' }}>
+                        {template.name}
+                      </div>
+                      <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--cosmic-text-muted)' }}>
+                        {template.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="template-actions">
+                    <button 
+                      className="btn-small delete-btn"
+                      onClick={() => handleDeleteLocationTemplate(template)}
+                      title="Delete location template"
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
@@ -446,6 +565,25 @@ function ProjectPage() {
             setEditingEntity(null);
           }}
           onEntityUpdated={handleEntityUpdated}
+        />
+      )}
+
+      {showCreateLocationTemplate && (
+        <CreateLocationTemplateModal
+          projectId={projectId}
+          onClose={() => setShowCreateLocationTemplate(false)}
+          onLocationTemplateCreated={handleLocationTemplateCreated}
+        />
+      )}
+
+      {showDeleteModal && (
+        <ConfirmDeleteModal
+          itemName={deletingItem?.name || ''}
+          onConfirm={confirmDelete}
+          onCancel={() => {
+            setShowDeleteModal(false);
+            setDeletingItem(null);
+          }}
         />
       )}
     </div>
