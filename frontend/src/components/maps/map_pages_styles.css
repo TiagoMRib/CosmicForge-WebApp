@@ -1,0 +1,372 @@
+/* Cosmic Forge - Map Pages Styles */
+@import '../cosmic-forge-theme.css';
+
+/* Location Creation Modal Styles */
+.template-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cosmic-space-md);
+  margin-top: var(--cosmic-space-md);
+}
+
+.template-card {
+  width: 120px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--cosmic-border-light);
+  padding: var(--cosmic-space-md);
+  border-radius: var(--cosmic-radius-xl);
+  background: var(--cosmic-bg-card);
+  transition: var(--cosmic-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.template-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--cosmic-gradient-secondary);
+  opacity: 0;
+  transition: var(--cosmic-transition);
+}
+
+.template-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--cosmic-shadow-lg);
+  border-color: var(--cosmic-accent);
+}
+
+.template-card:hover::before {
+  opacity: 0.1;
+}
+
+.template-card.selected {
+  border-color: var(--cosmic-accent);
+  box-shadow: var(--cosmic-shadow), 0 0 15px rgba(102, 126, 234, 0.3);
+  background: var(--cosmic-bg-card);
+}
+
+.template-card.selected::before {
+  opacity: 0.15;
+}
+
+.template-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: var(--cosmic-space-sm);
+  border-radius: var(--cosmic-radius);
+  background: var(--cosmic-bg-light);
+  padding: var(--cosmic-space-sm);
+  transition: var(--cosmic-transition);
+  position: relative;
+  z-index: 1;
+}
+
+.template-card:hover .template-icon {
+  transform: scale(1.1);
+}
+
+.template-card h4 {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--cosmic-text-dark);
+  position: relative;
+  z-index: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.template-card.selected h4 {
+  color: var(--cosmic-accent-dark);
+  font-weight: 600;
+}
+
+/* Map Container Styles */
+.map-container {
+  position: relative;
+  background: var(--cosmic-bg-card);
+  border-radius: var(--cosmic-radius-xl);
+  box-shadow: var(--cosmic-shadow-lg);
+  border: 1px solid var(--cosmic-border-light);
+  overflow: hidden;
+  margin: var(--cosmic-space-lg) 0;
+}
+
+.map-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: crosshair;
+  transition: var(--cosmic-transition);
+}
+
+.map-image:hover {
+  filter: brightness(1.1);
+}
+
+/* Location Markers */
+.location-marker {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--cosmic-gradient-primary);
+  border: 2px solid var(--cosmic-text-light);
+  border-radius: var(--cosmic-radius-full);
+  cursor: pointer;
+  transition: var(--cosmic-transition);
+  box-shadow: var(--cosmic-shadow);
+  z-index: 10;
+  transform: translate(-50%, -50%);
+}
+
+.location-marker:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: var(--cosmic-shadow-lg), var(--cosmic-shadow-glow);
+  z-index: 20;
+}
+
+.location-marker.active {
+  background: var(--cosmic-gradient-secondary);
+  box-shadow: var(--cosmic-shadow-lg), 0 0 20px rgba(67, 102, 241, 0.5);
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+/* Location Tooltip */
+.location-tooltip {
+  position: absolute;
+  background: var(--cosmic-bg-surface);
+  color: var(--cosmic-text-light);
+  padding: var(--cosmic-space-sm) var(--cosmic-space-md);
+  border-radius: var(--cosmic-radius-lg);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: var(--cosmic-shadow-lg);
+  border: 1px solid var(--cosmic-border);
+  transform: translate(-50%, -120%);
+}
+
+.location-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--cosmic-bg-surface);
+}
+
+/* Map Controls */
+.map-controls {
+  position: absolute;
+  top: var(--cosmic-space-md);
+  right: var(--cosmic-space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cosmic-space-sm);
+  z-index: 50;
+}
+
+.map-control-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: var(--cosmic-radius-lg);
+  background: var(--cosmic-bg-card);
+  color: var(--cosmic-text-dark);
+  cursor: pointer;
+  transition: var(--cosmic-transition);
+  box-shadow: var(--cosmic-shadow);
+  border: 1px solid var(--cosmic-border-light);
+}
+
+.map-control-btn:hover {
+  background: var(--cosmic-accent);
+  color: var(--cosmic-text-light);
+  transform: translateY(-2px);
+  box-shadow: var(--cosmic-shadow-lg);
+}
+
+.map-control-btn.active {
+  background: var(--cosmic-accent);
+  color: var(--cosmic-text-light);
+  box-shadow: var(--cosmic-shadow-lg), var(--cosmic-shadow-glow);
+}
+
+/* Map Info Panel */
+.map-info-panel {
+  background: var(--cosmic-bg-card);
+  border-radius: var(--cosmic-radius-xl);
+  padding: var(--cosmic-space-lg);
+  margin: var(--cosmic-space-lg) 0;
+  box-shadow: var(--cosmic-shadow);
+  border: 1px solid var(--cosmic-border-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.map-info-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--cosmic-gradient-primary);
+  opacity: 0.02;
+  pointer-events: none;
+}
+
+.map-info-panel h3 {
+  margin: 0 0 var(--cosmic-space-md) 0;
+  color: var(--cosmic-text-dark);
+  font-size: 1.25rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.map-info-panel p {
+  margin: 0;
+  color: var(--cosmic-text-muted);
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* Location Details Panel */
+.location-details {
+  background: var(--cosmic-bg-light);
+  border-radius: var(--cosmic-radius-lg);
+  padding: var(--cosmic-space-md);
+  margin: var(--cosmic-space-md) 0;
+  border-left: 4px solid var(--cosmic-accent);
+}
+
+.location-details h4 {
+  margin: 0 0 var(--cosmic-space-sm) 0;
+  color: var(--cosmic-text-dark);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.location-field {
+  margin: var(--cosmic-space-xs) 0;
+  font-size: 0.875rem;
+  color: var(--cosmic-text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.location-field strong {
+  color: var(--cosmic-text-dark);
+  margin-right: var(--cosmic-space-sm);
+  min-width: 100px;
+  font-weight: 600;
+}
+
+/* Map Loading State */
+.map-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background: var(--cosmic-bg-light);
+  border-radius: var(--cosmic-radius-xl);
+  color: var(--cosmic-text-muted);
+  font-size: 1.125rem;
+  border: 2px dashed var(--cosmic-border-light);
+}
+
+.map-loading::before {
+  content: '🌌';
+  margin-right: var(--cosmic-space-sm);
+  font-size: 1.5rem;
+  animation: cosmic-float 2s ease-in-out infinite;
+}
+
+/* Map Error State */
+.map-error {
+  background: var(--cosmic-error-light);
+  color: #991b1b;
+  border: 1px solid var(--cosmic-error);
+  border-radius: var(--cosmic-radius-lg);
+  padding: var(--cosmic-space-lg);
+  margin: var(--cosmic-space-lg) 0;
+  text-align: center;
+  border-left: 4px solid var(--cosmic-error);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .template-grid {
+    gap: var(--cosmic-space-sm);
+  }
+  
+  .template-card {
+    width: 100px;
+    padding: var(--cosmic-space-sm);
+  }
+  
+  .template-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .map-controls {
+    top: var(--cosmic-space-sm);
+    right: var(--cosmic-space-sm);
+  }
+  
+  .map-control-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .location-marker {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .template-grid {
+    justify-content: center;
+  }
+  
+  .template-card {
+    width: 90px;
+  }
+  
+  .template-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .map-info-panel,
+  .location-details {
+    padding: var(--cosmic-space-md);
+  }
+  
+  .location-field {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .location-field strong {
+    min-width: auto;
+    margin-bottom: var(--cosmic-space-xs);
+  }
+}

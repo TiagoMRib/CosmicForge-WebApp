@@ -1,0 +1,640 @@
+/* Cosmic Forge - Universal Theme System */
+
+/* Color Palette */
+:root {
+  /* Primary Colors - Deep Space Blues & Purples */
+  --cosmic-primary: #1a1b3a;
+  --cosmic-secondary: #2d2f5e;
+  --cosmic-accent: #4a5ad6;
+  --cosmic-accent-light: #6366f1;
+  --cosmic-accent-dark: #3730a3;
+  
+  /* Cosmic Gradients */
+  --cosmic-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --cosmic-gradient-secondary: linear-gradient(135deg, #4a5ad6 0%, #6366f1 100%);
+  --cosmic-gradient-dark: linear-gradient(135deg, #1a1b3a 0%, #2d2f5e 100%);
+  --cosmic-gradient-nebula: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  
+  /* Text Colors */
+  --cosmic-text-primary: #e2e8f0;
+  --cosmic-text-secondary: #94a3b8;
+  --cosmic-text-muted: #64748b;
+  --cosmic-text-dark: #1e293b;
+  --cosmic-text-light: #f8fafc;
+  
+  /* Background Colors */
+  --cosmic-bg-primary: #0f0f23;
+  --cosmic-bg-secondary: #1a1b3a;
+  --cosmic-bg-surface: #2d2f5e;
+  --cosmic-bg-light: #f1f5f9;
+  --cosmic-bg-card: #ffffff;
+  
+  /* Status Colors */
+  --cosmic-success: #10b981;
+  --cosmic-success-light: #d1fae5;
+  --cosmic-warning: #f59e0b;
+  --cosmic-warning-light: #fef3c7;
+  --cosmic-error: #ef4444;
+  --cosmic-error-light: #fee2e2;
+  --cosmic-info: #3b82f6;
+  --cosmic-info-light: #dbeafe;
+  
+  /* Border Colors */
+  --cosmic-border: #374151;
+  --cosmic-border-light: #e5e7eb;
+  --cosmic-border-accent: var(--cosmic-accent);
+  
+  /* Shadow Colors */
+  --cosmic-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --cosmic-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --cosmic-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --cosmic-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --cosmic-shadow-glow: 0 0 20px rgba(102, 126, 234, 0.3);
+  
+  /* Spacing */
+  --cosmic-space-xs: 0.25rem;
+  --cosmic-space-sm: 0.5rem;
+  --cosmic-space-md: 1rem;
+  --cosmic-space-lg: 1.5rem;
+  --cosmic-space-xl: 2rem;
+  --cosmic-space-2xl: 3rem;
+  
+  /* Border Radius */
+  --cosmic-radius-sm: 0.25rem;
+  --cosmic-radius: 0.5rem;
+  --cosmic-radius-lg: 0.75rem;
+  --cosmic-radius-xl: 1rem;
+  --cosmic-radius-full: 9999px;
+  
+  /* Fonts */
+  --cosmic-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --cosmic-font-mono: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
+  
+  /* Transitions */
+  --cosmic-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --cosmic-transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Universal Base Styles */
+.cosmic-base {
+  font-family: var(--cosmic-font-family);
+  color: var(--cosmic-text-dark);
+  line-height: 1.6;
+}
+
+/* Button System */
+.cosmic-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cosmic-space-sm);
+  padding: var(--cosmic-space-sm) var(--cosmic-space-md);
+  border: none;
+  border-radius: var(--cosmic-radius-lg);
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--cosmic-transition);
+  text-decoration: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.cosmic-btn:focus {
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.cosmic-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Button Variants */
+.cosmic-btn-primary {
+  background: var(--cosmic-gradient-primary);
+  color: var(--cosmic-text-light);
+  box-shadow: var(--cosmic-shadow);
+}
+
+.cosmic-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--cosmic-shadow-lg), var(--cosmic-shadow-glow);
+}
+
+.cosmic-btn-secondary {
+  background: var(--cosmic-bg-surface);
+  color: var(--cosmic-text-primary);
+  border: 1px solid var(--cosmic-border);
+}
+
+.cosmic-btn-secondary:hover:not(:disabled) {
+  background: var(--cosmic-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--cosmic-shadow);
+}
+
+.cosmic-btn-accent {
+  background: var(--cosmic-gradient-secondary);
+  color: var(--cosmic-text-light);
+  box-shadow: var(--cosmic-shadow);
+}
+
+.cosmic-btn-accent:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--cosmic-shadow-lg), 0 0 20px rgba(67, 102, 241, 0.4);
+}
+
+.cosmic-btn-danger {
+  background: var(--cosmic-error);
+  color: var(--cosmic-text-light);
+}
+
+.cosmic-btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: var(--cosmic-shadow);
+}
+
+.cosmic-btn-success {
+  background: var(--cosmic-success);
+  color: var(--cosmic-text-light);
+}
+
+.cosmic-btn-success:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: var(--cosmic-shadow);
+}
+
+/* Button Sizes */
+.cosmic-btn-sm {
+  padding: var(--cosmic-space-xs) var(--cosmic-space-sm);
+  font-size: 0.75rem;
+  border-radius: var(--cosmic-radius);
+}
+
+.cosmic-btn-lg {
+  padding: var(--cosmic-space-md) var(--cosmic-space-xl);
+  font-size: 1rem;
+  border-radius: var(--cosmic-radius-xl);
+}
+
+.cosmic-btn-xl {
+  padding: var(--cosmic-space-lg) var(--cosmic-space-2xl);
+  font-size: 1.125rem;
+  border-radius: var(--cosmic-radius-xl);
+}
+
+/* Card System */
+.cosmic-card {
+  background: var(--cosmic-bg-card);
+  border-radius: var(--cosmic-radius-xl);
+  padding: var(--cosmic-space-xl);
+  box-shadow: var(--cosmic-shadow);
+  border: 1px solid var(--cosmic-border-light);
+  transition: var(--cosmic-transition);
+}
+
+.cosmic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--cosmic-shadow-xl);
+}
+
+.cosmic-card-dark {
+  background: var(--cosmic-bg-surface);
+  color: var(--cosmic-text-primary);
+  border-color: var(--cosmic-border);
+}
+
+.cosmic-card-compact {
+  padding: var(--cosmic-space-md);
+}
+
+.cosmic-card-interactive {
+  cursor: pointer;
+}
+
+.cosmic-card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--cosmic-shadow-xl), var(--cosmic-shadow-glow);
+}
+
+/* Modal System */
+.cosmic-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 35, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: var(--cosmic-space-md);
+}
+
+.cosmic-modal-content {
+  background: var(--cosmic-bg-card);
+  border-radius: var(--cosmic-radius-xl);
+  box-shadow: var(--cosmic-shadow-xl), var(--cosmic-shadow-glow);
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: var(--cosmic-space-2xl);
+  position: relative;
+}
+
+.cosmic-modal-content-lg {
+  max-width: 800px;
+  width: 95%;
+  max-height: 90vh;
+}
+
+.cosmic-modal-header {
+  margin-bottom: var(--cosmic-space-xl);
+  padding-bottom: var(--cosmic-space-md);
+  border-bottom: 2px solid var(--cosmic-accent);
+}
+
+.cosmic-modal-header h2 {
+  margin: 0;
+  color: var(--cosmic-text-dark);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.cosmic-modal-actions {
+  display: flex;
+  gap: var(--cosmic-space-md);
+  justify-content: flex-end;
+  margin-top: var(--cosmic-space-xl);
+  padding-top: var(--cosmic-space-md);
+  border-top: 1px solid var(--cosmic-border-light);
+}
+
+/* Form System */
+.cosmic-form-group {
+  margin-bottom: var(--cosmic-space-lg);
+}
+
+.cosmic-label {
+  display: block;
+  margin-bottom: var(--cosmic-space-sm);
+  font-weight: 500;
+  color: var(--cosmic-text-dark);
+  font-size: 0.875rem;
+}
+
+.cosmic-input,
+.cosmic-select,
+.cosmic-textarea {
+  width: 100%;
+  padding: var(--cosmic-space-sm) var(--cosmic-space-md);
+  border: 1px solid var(--cosmic-border-light);
+  border-radius: var(--cosmic-radius-lg);
+  font-size: 0.875rem;
+  font-family: var(--cosmic-font-family);
+  transition: var(--cosmic-transition);
+  background: var(--cosmic-bg-card);
+  color: var(--cosmic-text-dark);
+}
+
+.cosmic-input:focus,
+.cosmic-select:focus,
+.cosmic-textarea:focus {
+  outline: none;
+  border-color: var(--cosmic-accent);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.cosmic-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.cosmic-checkbox {
+  width: auto !important;
+  margin-right: var(--cosmic-space-sm);
+}
+
+.cosmic-checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: var(--cosmic-space-sm);
+  cursor: pointer;
+  font-weight: normal;
+}
+
+/* Grid System */
+.cosmic-grid {
+  display: grid;
+  gap: var(--cosmic-space-lg);
+}
+
+.cosmic-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cosmic-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cosmic-grid-auto {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.cosmic-grid-responsive {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Flexbox Utilities */
+.cosmic-flex {
+  display: flex;
+}
+
+.cosmic-flex-col {
+  flex-direction: column;
+}
+
+.cosmic-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.cosmic-items-center {
+  align-items: center;
+}
+
+.cosmic-justify-center {
+  justify-content: center;
+}
+
+.cosmic-justify-between {
+  justify-content: space-between;
+}
+
+.cosmic-justify-end {
+  justify-content: flex-end;
+}
+
+.cosmic-gap-sm {
+  gap: var(--cosmic-space-sm);
+}
+
+.cosmic-gap-md {
+  gap: var(--cosmic-space-md);
+}
+
+.cosmic-gap-lg {
+  gap: var(--cosmic-space-lg);
+}
+
+/* Typography */
+.cosmic-heading-xl {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0;
+  color: var(--cosmic-text-dark);
+}
+
+.cosmic-heading-lg {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+  color: var(--cosmic-text-dark);
+}
+
+.cosmic-heading-md {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--cosmic-text-dark);
+}
+
+.cosmic-heading-sm {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--cosmic-text-dark);
+}
+
+.cosmic-text-muted {
+  color: var(--cosmic-text-muted);
+}
+
+.cosmic-text-center {
+  text-align: center;
+}
+
+.cosmic-text-sm {
+  font-size: 0.875rem;
+}
+
+.cosmic-text-xs {
+  font-size: 0.75rem;
+}
+
+/* Status & Feedback */
+.cosmic-alert {
+  padding: var(--cosmic-space-md);
+  border-radius: var(--cosmic-radius-lg);
+  margin-bottom: var(--cosmic-space-md);
+  border-left: 4px solid;
+}
+
+.cosmic-alert-error {
+  background: var(--cosmic-error-light);
+  color: #991b1b;
+  border-color: var(--cosmic-error);
+}
+
+.cosmic-alert-warning {
+  background: var(--cosmic-warning-light);
+  color: #92400e;
+  border-color: var(--cosmic-warning);
+}
+
+.cosmic-alert-success {
+  background: var(--cosmic-success-light);
+  color: #065f46;
+  border-color: var(--cosmic-success);
+}
+
+.cosmic-alert-info {
+  background: var(--cosmic-info-light);
+  color: #1e40af;
+  border-color: var(--cosmic-info);
+}
+
+/* Loading & Empty States */
+.cosmic-loading {
+  text-align: center;
+  padding: var(--cosmic-space-2xl);
+  color: var(--cosmic-text-muted);
+}
+
+.cosmic-empty-state {
+  text-align: center;
+  padding: var(--cosmic-space-2xl);
+  color: var(--cosmic-text-muted);
+}
+
+.cosmic-empty-state h3 {
+  margin-bottom: var(--cosmic-space-md);
+  color: var(--cosmic-text-dark);
+}
+
+/* Utilities */
+.cosmic-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.cosmic-relative {
+  position: relative;
+}
+
+.cosmic-absolute {
+  position: absolute;
+}
+
+.cosmic-w-full {
+  width: 100%;
+}
+
+.cosmic-h-full {
+  height: 100%;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .cosmic-auto-dark {
+    --cosmic-bg-card: var(--cosmic-bg-surface);
+    --cosmic-text-dark: var(--cosmic-text-primary);
+    --cosmic-border-light: var(--cosmic-border);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cosmic-grid-2,
+  .cosmic-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .cosmic-modal-content {
+    margin: var(--cosmic-space-md);
+    padding: var(--cosmic-space-lg);
+  }
+  
+  .cosmic-heading-xl {
+    font-size: 2rem;
+  }
+  
+  .cosmic-heading-lg {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cosmic-modal {
+    padding: var(--cosmic-space-sm);
+  }
+  
+  .cosmic-modal-content {
+    padding: var(--cosmic-space-md);
+  }
+  
+  .cosmic-modal-actions {
+    flex-direction: column;
+  }
+  
+  .cosmic-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes cosmic-glow {
+  0%, 100% {
+    box-shadow: var(--cosmic-shadow-lg);
+  }
+  50% {
+    box-shadow: var(--cosmic-shadow-xl), var(--cosmic-shadow-glow);
+  }
+}
+
+@keyframes cosmic-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Hover Effects */
+.cosmic-hover-glow:hover {
+  animation: cosmic-glow 2s ease-in-out infinite;
+}
+
+.cosmic-hover-float:hover {
+  animation: cosmic-float 2s ease-in-out infinite;
+}
+
+/* Special Components */
+.cosmic-header {
+  background: var(--cosmic-gradient-nebula);
+  color: var(--cosmic-text-light);
+  padding: var(--cosmic-space-2xl) 0;
+  text-align: center;
+  margin-bottom: var(--cosmic-space-2xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.cosmic-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="white" opacity="0.3"/><circle cx="80" cy="30" r="0.5" fill="white" opacity="0.5"/><circle cx="40" cy="70" r="0.8" fill="white" opacity="0.4"/><circle cx="90" cy="80" r="0.6" fill="white" opacity="0.6"/><circle cx="10" cy="90" r="0.4" fill="white" opacity="0.3"/></svg>') repeat;
+  background-size: 100px 100px;
+  animation: cosmic-stars 20s linear infinite;
+}
+
+@keyframes cosmic-stars {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(-100px) translateY(-100px);
+  }
+}
+
+.cosmic-section {
+  margin: var(--cosmic-space-2xl) 0;
+}
+
+.cosmic-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--cosmic-space-lg);
+  padding-bottom: var(--cosmic-space-sm);
+  border-bottom: 2px solid var(--cosmic-accent);
+}

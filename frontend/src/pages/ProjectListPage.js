@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import CreateProjectButton from '../components/CreateProjectButton';
+import CreateProjectButton from '../components/projects/CreateProjectButton';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 

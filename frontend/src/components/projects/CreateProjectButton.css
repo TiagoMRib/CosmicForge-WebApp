@@ -1,0 +1,186 @@
+/* Cosmic Forge - Create Project Button Component */
+@import '../cosmic-forge-theme.css';
+
+.button-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 35, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--cosmic-space-md);
+}
+
+.button {
+  background: var(--cosmic-bg-card);
+  padding: var(--cosmic-space-2xl);
+  border-radius: var(--cosmic-radius-xl);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--cosmic-shadow-xl), var(--cosmic-shadow-glow);
+  border: 1px solid var(--cosmic-border-light);
+  position: relative;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--cosmic-gradient-primary);
+  opacity: 0.05;
+  border-radius: var(--cosmic-radius-xl);
+  pointer-events: none;
+}
+
+.button h2 {
+  margin-top: 0;
+  margin-bottom: var(--cosmic-space-lg);
+  color: var(--cosmic-text-dark);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: var(--cosmic-space-sm);
+  border-bottom: 2px solid var(--cosmic-accent);
+  position: relative;
+  z-index: 1;
+}
+
+.button label {
+  display: block;
+  margin-bottom: var(--cosmic-space-md);
+  font-weight: 500;
+  color: var(--cosmic-text-dark);
+  font-size: 0.875rem;
+  position: relative;
+  z-index: 1;
+}
+
+.button input,
+.button textarea {
+  width: 100%;
+  padding: var(--cosmic-space-sm) var(--cosmic-space-md);
+  margin-top: var(--cosmic-space-xs);
+  border: 1px solid var(--cosmic-border-light);
+  border-radius: var(--cosmic-radius-lg);
+  font-size: 0.875rem;
+  font-family: var(--cosmic-font-family);
+  transition: var(--cosmic-transition);
+  background: var(--cosmic-bg-card);
+  color: var(--cosmic-text-dark);
+  position: relative;
+  z-index: 1;
+}
+
+.button input:focus,
+.button textarea:focus {
+  outline: none;
+  border-color: var(--cosmic-accent);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.button textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: var(--cosmic-font-family);
+}
+
+.button-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--cosmic-space-md);
+  margin-top: var(--cosmic-space-xl);
+  padding-top: var(--cosmic-space-md);
+  border-top: 1px solid var(--cosmic-border-light);
+  position: relative;
+  z-index: 1;
+}
+
+.button-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cosmic-space-sm);
+  padding: var(--cosmic-space-sm) var(--cosmic-space-lg);
+  border: none;
+  border-radius: var(--cosmic-radius-lg);
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--cosmic-transition);
+  text-decoration: none;
+  outline: none;
+  min-width: 80px;
+}
+
+.button-actions button:first-child {
+  background: var(--cosmic-gradient-primary);
+  color: var(--cosmic-text-light);
+  box-shadow: var(--cosmic-shadow);
+}
+
+.button-actions button:first-child:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--cosmic-shadow-lg), var(--cosmic-shadow-glow);
+}
+
+.button-actions button:last-child {
+  background: var(--cosmic-bg-surface);
+  color: var(--cosmic-text-primary);
+  border: 1px solid var(--cosmic-border);
+}
+
+.button-actions button:last-child:hover {
+  background: var(--cosmic-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--cosmic-shadow);
+}
+
+.button-actions button:focus {
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.button-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.error {
+  color: #991b1b;
+  background: var(--cosmic-error-light);
+  border: 1px solid var(--cosmic-error);
+  border-radius: var(--cosmic-radius-lg);
+  padding: var(--cosmic-space-md);
+  margin-bottom: var(--cosmic-space-md);
+  border-left: 4px solid var(--cosmic-error);
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .button-backdrop {
+    padding: var(--cosmic-space-sm);
+  }
+  
+  .button {
+    padding: var(--cosmic-space-lg);
+  }
+  
+  .button-actions {
+    flex-direction: column;
+  }
+  
+  .button-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}
