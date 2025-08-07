@@ -1,11 +1,11 @@
 // pages/ProjectPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import CreateTemplateModal from '../components/CreateTemplateModal';
-import EditTemplateModal from '../components/EditTemplateModal';
-import CreateMapModal from '../components/CreateMapModal';
-import CreateEntityModal from '../components/CreateEntityModal';
-import EditEntityModal from '../components/EditEntityModal';
+import CreateTemplateModal from '../components/entities/CreateTemplateModal';
+import EditTemplateModal from '../components/entities/EditTemplateModal';
+import CreateMapModal from '../components/maps/CreateMapModal';
+import CreateEntityModal from '../components/entities/CreateEntityModal';
+import EditEntityModal from '../components/entities/EditEntityModal';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 

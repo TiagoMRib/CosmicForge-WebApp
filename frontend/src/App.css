@@ -1,14 +1,89 @@
+/* Cosmic Forge - App Component Styles */
+@import './components/cosmic-forge-theme.css';
+
 .App {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background: var(--cosmic-bg-light);
+  color: var(--cosmic-text-dark);
+  font-family: var(--cosmic-font-family);
 }
 
 .App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
+  background: var(--cosmic-gradient-dark);
+  padding: var(--cosmic-space-xl);
+  color: var(--cosmic-text-light);
+  box-shadow: var(--cosmic-shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.App-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><circle cx="10" cy="10" r="0.5" fill="white" opacity="0.4"/><circle cx="40" cy="15" r="0.3" fill="white" opacity="0.6"/><circle cx="20" cy="35" r="0.4" fill="white" opacity="0.3"/><circle cx="45" cy="40" r="0.2" fill="white" opacity="0.5"/></svg>') repeat;
+  background-size: 50px 50px;
+  animation: cosmic-stars 30s linear infinite;
+}
+
+.App-header h1 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--cosmic-accent-light);
+  text-decoration: none;
+  transition: var(--cosmic-transition);
+  position: relative;
+  z-index: 1;
+}
+
+.App-link:hover {
+  color: var(--cosmic-text-light);
+  text-shadow: 0 0 8px var(--cosmic-accent-light);
+}
+
+/* Cosmic background pattern for the entire app */
+.App::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(67, 102, 241, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Enhanced responsive behavior */
+@media (max-width: 768px) {
+  .App-header {
+    padding: var(--cosmic-space-lg);
+  }
+  
+  .App-header h1 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    padding: var(--cosmic-space-md);
+  }
+  
+  .App-header h1 {
+    font-size: 1.5rem;
+  }
 } 

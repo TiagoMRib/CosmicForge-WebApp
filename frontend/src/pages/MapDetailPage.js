@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import CreateLocationTemplateModal from '../components/CreateLocationTemplateModal';
-import LocationCreationModal from '../components/LocationCreationModal';
-import LocationInstanceForm from '../components/LocationInstanceForm';
-import '../components/map_pages_styles.css';
+import CreateLocationTemplateModal from '../components/maps/CreateLocationTemplateModal';
+import LocationCreationModal from '../components/maps/LocationCreationModal';
+import LocationInstanceForm from '../components/maps/LocationInstanceForm';
+import '../components/maps/map_pages_styles.css';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
