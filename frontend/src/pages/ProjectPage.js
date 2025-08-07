@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import CreateTemplateModal from '../components/CreateTemplateModal';
 import EditTemplateModal from '../components/EditTemplateModal';
+import CreateMapModal from '../components/CreateMapModal';
 import CreateEntityModal from '../components/CreateEntityModal';
 import EditEntityModal from '../components/EditEntityModal';
 
@@ -19,6 +20,8 @@ function ProjectPage() {
   const [showEditTemplate, setShowEditTemplate] = useState(false);
   const [editingTemplate, setEditingTemplate] = useState(null);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [maps, setMaps] = useState([]);
+  const [showCreateMap, setShowCreateMap] = useState(false);
   const [showEntityModal, setShowEntityModal] = useState(false);
   const [showEditEntityModal, setShowEditEntityModal] = useState(false);
   const [editingEntity, setEditingEntity] = useState(null);
@@ -53,6 +56,22 @@ function ProjectPage() {
       // Don't set error for templates, just log it
     }
   };
+
+  const fetchMaps = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/projects/${projectId}/maps`);
+      if (!response.ok) throw new Error('Failed to fetch maps');
+      const data = await response.json();
+      setMaps(data);
+    } catch (err) {
+      console.error('Error fetching maps:', err);
+    }
+  };
+
+  const handleMapCreated = (newMap) => {
+    setMaps(prev => [newMap, ...prev]);
+  };
+
 
   const fetchEntities = async (templateId) => {
     if (!templateId) return;
@@ -157,6 +176,7 @@ function ProjectPage() {
       setError(null);
       await fetchProject();
       await fetchTemplates();
+      await fetchMaps();
       setLoading(false);
     };
 
@@ -247,6 +267,35 @@ function ProjectPage() {
             ))}
           </ul>
         )}
+
+        <hr />
+        <h2>Maps</h2>
+
+        <button className="btn" onClick={() => setShowCreateMap(true)}>
+          + Create Map
+        </button>
+
+        {maps.length === 0 ? (
+          <div className="empty-state">
+            <h3>No maps yet</h3>
+            <p>Create a map to start placing locations.</p>
+          </div>
+        ) : (
+          <ul className="template-list">
+            {maps.map(map => (
+              <li key={map.id} className="template-item">
+                <button 
+                  className="template-button"
+                  onClick={() => navigate(`/projects/${projectId}/maps/${map.id}`)}
+                >
+                  🗺️ {map.name}
+                </button>
+                <p>{map.description}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+
 
         {selectedTemplate && (
           <>
@@ -358,6 +407,15 @@ function ProjectPage() {
           onTemplateCreated={handleTemplateCreated}
         />
       )}
+
+      {showCreateMap && (
+        <CreateMapModal
+          projectId={projectId}
+          onClose={() => setShowCreateMap(false)}
+          onMapCreated={handleMapCreated}
+        />
+      )}
+
 
       {showEditTemplate && editingTemplate && (
         <EditTemplateModal

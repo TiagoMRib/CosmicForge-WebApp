@@ -1,0 +1,29 @@
+/* LocationCreationModal.css */
+.template-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.template-card {
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  transition: 0.2s;
+}
+
+.template-card:hover {
+  background: #eef;
+}
+
+.template-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
