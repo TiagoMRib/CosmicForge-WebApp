@@ -327,94 +327,6 @@ function ProjectPage() {
           </ul>
         )}
 
-        <hr />
-        <h2>Maps</h2>
-
-        <button className="btn" onClick={() => setShowCreateMap(true)}>
-          + Create Map
-        </button>
-
-        {maps.length === 0 ? (
-          <div className="empty-state">
-            <h3>No maps yet</h3>
-            <p>Create a map to start placing locations.</p>
-          </div>
-        ) : (
-          <ul className="template-list">
-            {maps.map(map => (
-              <li key={map.id} className="template-item">
-                <div className="template-header">
-                  <button 
-                    className="template-button"
-                    onClick={() => navigate(`/projects/${projectId}/maps/${map.id}`)}
-                  >
-                    🗺️ {map.name}
-                  </button>
-                  <div className="template-actions">
-                    <button 
-                      className="btn-small delete-btn"
-                      onClick={() => handleDeleteLocationTemplate({ type: 'map', item: map })}
-                      title="Delete map"
-                    >
-                      ×
-                    </button>
-                  </div>
-                </div>
-                <p>{map.description}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <hr />
-        <h2>Location Templates</h2>
-
-        <button className="cosmic-btn cosmic-btn-primary" onClick={() => setShowCreateLocationTemplate(true)}>
-          + Create Location Template
-        </button>
-
-        {locationTemplates.length === 0 ? (
-          <div className="empty-state">
-            <h3>No location templates yet</h3>
-            <p>Create location templates to place on your maps!</p>
-          </div>
-        ) : (
-          <ul className="template-list">
-            {locationTemplates.map(template => (
-              <li key={template.id} className="template-item">
-                <div className="template-header">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cosmic-space-sm)' }}>
-                    {template.icon_url && (
-                      <img 
-                        src={template.icon_url} 
-                        alt={template.name}
-                        style={{ width: 24, height: 24, borderRadius: 'var(--cosmic-radius)' }}
-                      />
-                    )}
-                    <div>
-                      <div className="template-button" style={{ background: 'none', padding: 0, textAlign: 'left' }}>
-                        {template.name}
-                      </div>
-                      <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--cosmic-text-muted)' }}>
-                        {template.description}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="template-actions">
-                    <button 
-                      className="btn-small delete-btn"
-                      onClick={() => handleDeleteLocationTemplate(template)}
-                      title="Delete location template"
-                    >
-                      ×
-                    </button>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-
 
         {selectedTemplate && (
           <>
@@ -518,6 +430,96 @@ function ProjectPage() {
           </>
         )}
       </div>
+
+        <h2>Maps</h2>
+
+        <button className="btn" onClick={() => setShowCreateMap(true)}>
+          + Create Map
+        </button>
+
+        {maps.length === 0 ? (
+          <div className="empty-state">
+            <h3>No maps yet</h3>
+            <p>Create a map to start placing locations.</p>
+          </div>
+        ) : (
+          <ul className="template-list">
+            {maps.map(map => (
+              <li key={map.id} className="template-item">
+                <div className="template-header">
+                  <button 
+                    className="template-button"
+                    onClick={() => navigate(`/projects/${projectId}/maps/${map.id}`)}
+                  >
+                    🗺️ {map.name}
+                  </button>
+                  <div className="template-actions">
+                    <button 
+                      className="btn-small delete-btn"
+                      onClick={() => handleDeleteLocationTemplate({ type: 'map', item: map })}
+                      title="Delete map"
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
+                <p>{map.description}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <hr />
+
+        <h2>Location Templates</h2>
+
+        <button className="cosmic-btn cosmic-btn-primary" onClick={() => setShowCreateLocationTemplate(true)}>
+          + Create Location Template
+        </button>
+
+        {locationTemplates.length === 0 ? (
+          <div className="empty-state">
+            <h3>No location templates yet</h3>
+            <p>Create location templates to place on your maps!</p>
+          </div>
+        ) : (
+          <ul className="template-list">
+            {locationTemplates.map(template => (
+              <li key={template.id} className="template-item">
+                <div className="template-header">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cosmic-space-sm)' }}>
+                    {template.icon_url && (
+                      <img 
+                        src={template.icon_url} 
+                        alt={template.name}
+                        style={{ width: 24, height: 24, borderRadius: 'var(--cosmic-radius)' }}
+                      />
+                    )}
+                    <div>
+                      <div className="template-button" style={{ background: 'none', padding: 0, textAlign: 'left' }}>
+                        {template.name}
+                      </div>
+                      <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--cosmic-text-muted)' }}>
+                        {template.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="template-actions">
+                    <button 
+                      className="btn-small delete-btn"
+                      onClick={() => handleDeleteLocationTemplate(template)}
+                      title="Delete location template"
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        
 
       {showCreateTemplate && (
         <CreateTemplateModal
