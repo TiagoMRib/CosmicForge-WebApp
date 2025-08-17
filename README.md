@@ -113,10 +113,10 @@ npm start
 ## 🏗️ Architecture
 
 ### Frontend
-- **React 18.2.0** with modern hooks and functional components
-- **React Router** for navigation
-- **CSS Variables** with cosmic theme system
-- **Modular component structure** organized by feature
+- **React 18.2.0** 
+- **React Router** 
+- **CSS Variables** 
+- **Modular component structure** 
 
 ### Backend
 - **Node.js** with Express.js framework
