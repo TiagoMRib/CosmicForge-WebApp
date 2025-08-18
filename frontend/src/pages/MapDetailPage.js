@@ -315,16 +315,6 @@ function MapDetailPage() {
         </div>
       </div>
 
-      {showTemplateModal && (
-        <CreateLocationTemplateModal
-            onClose={() => setShowTemplateModal(false)}
-            onTemplateCreated={(newTemplate) => {
-            setLocationTemplates((prev) => [...prev, newTemplate]);
-            setShowTemplateModal(false);
-            }}
-        />
-        )}
-
       {showLocationModal && (
         <LocationCreationModal
           templates={locationTemplates}

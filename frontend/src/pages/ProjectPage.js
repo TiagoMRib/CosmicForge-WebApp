@@ -200,6 +200,11 @@ function ProjectPage() {
     setShowDeleteModal(true);
   };
 
+  const handleDeleteMap = (map) => {
+    setDeletingItem({ type: 'map', item: map });
+    setShowDeleteModal(true);
+  };
+
   const confirmDelete = async () => {
     if (!deletingItem) return;
 
@@ -456,7 +461,7 @@ function ProjectPage() {
                   <div className="template-actions">
                     <button 
                       className="btn-small delete-btn"
-                      onClick={() => handleDeleteLocationTemplate({ type: 'map', item: map })}
+                      onClick={() => handleDeleteMap(map)}
                       title="Delete map"
                     >
                       ×
@@ -496,7 +501,7 @@ function ProjectPage() {
                       />
                     )}
                     <div>
-                      <div className="template-button" style={{ background: 'none', padding: 0, textAlign: 'left' }}>
+                      <div className="template-button" style={{ background: 'none', padding: 1, textAlign: 'left', color: 'var(--cosmic-text-muted)' }}>
                         {template.name}
                       </div>
                       <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--cosmic-text-muted)' }}>
@@ -574,7 +579,7 @@ function ProjectPage() {
         <CreateLocationTemplateModal
           projectId={projectId}
           onClose={() => setShowCreateLocationTemplate(false)}
-          onLocationTemplateCreated={handleLocationTemplateCreated}
+          onCreate={handleLocationTemplateCreated}
         />
       )}
 
