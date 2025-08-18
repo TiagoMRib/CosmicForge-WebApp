@@ -40,6 +40,8 @@ Bring your templates to life by creating specific instances with custom data.
 - **Full lifecycle management**: Create, view, edit, and delete entities
 - **Computed field evaluation**: Automatic calculation of formula-based fields
 
+![Project and Entity Creation](images_and_docs/videos/video1.mp4)
+
 ### 🗺️ **Interactive Maps**
 Create immersive, clickable maps with dynamic location management.
 
@@ -56,6 +58,12 @@ Create immersive, clickable maps with dynamic location management.
 - **Visual markers**: Locations display with their template icons
 - **Relative positioning**: Coordinates adapt to map resizing
 - **Edit on click**: Click locations to view and edit details
+
+![Map Creation](images_and_docs/videos/video2.mp4)
+
+### **Future Features**
+- **Entity relation graph**
+- **Event Timeline**
 
 ---
 
